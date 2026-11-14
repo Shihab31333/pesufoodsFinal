@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import * as controller from '../controllers/canteenController.js';
+import { protect, adminOnly } from '../middleware/authMiddleware.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+const router = Router();
+router.get('/', asyncHandler(controller.listCanteens));
+router.get('/:id', asyncHandler(controller.getCanteen));
+router.post('/', protect, adminOnly, asyncHandler(controller.createCanteen));
+router.put('/:id', protect, adminOnly, asyncHandler(controller.updateCanteen));
+router.delete('/:id', protect, adminOnly, asyncHandler(controller.deleteCanteen));
+export default router;

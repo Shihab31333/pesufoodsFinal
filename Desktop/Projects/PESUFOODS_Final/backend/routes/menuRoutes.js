@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import * as controller from '../controllers/menuController.js';
+import { protect, adminOnly } from '../middleware/authMiddleware.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+const router = Router();
+router.get('/', asyncHandler(controller.listMenu));
+router.get('/search', asyncHandler(controller.listMenu));
+router.get('/:id', asyncHandler(controller.getMenuItem));
+router.post('/', protect, adminOnly, asyncHandler(controller.createMenuItem));
+router.put('/:id', protect, adminOnly, asyncHandler(controller.updateMenuItem));
+router.delete('/:id', protect, adminOnly, asyncHandler(controller.deleteMenuItem));
+export default router;

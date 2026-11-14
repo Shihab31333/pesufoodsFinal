@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import * as controller from '../controllers/orderController.js';
+import { protect, adminOnly } from '../middleware/authMiddleware.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+const router = Router();
+router.post('/checkout', protect, asyncHandler(controller.createOrder));
+router.get('/my-orders', protect, asyncHandler(controller.myOrders));
+router.get('/', protect, adminOnly, asyncHandler(controller.allOrders));
+router.patch('/:id/status', protect, adminOnly, asyncHandler(controller.updateStatus));
+router.patch('/:id/cancel', protect, asyncHandler(controller.cancelOrder));
+export default router;

@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import * as controller from '../controllers/adminController.js';
+import { protect, adminOnly } from '../middleware/authMiddleware.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+const router = Router();
+router.use(protect, adminOnly);
+router.get('/dashboard', asyncHandler(controller.dashboard));
+router.get('/users', asyncHandler(controller.users));
+router.get('/inventory', asyncHandler(controller.inventory));
+export default router;
